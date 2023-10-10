@@ -1,13 +1,17 @@
 <script setup>
+import LayoutNar from './components/LayoutNar.vue';
+import LayoutHeader from './components/LayoutHeader.vue';
+import LayoutFooter from './components/LayoutFooter.vue';
 
 </script>
 
 <template>
-  <div>
-    我是首页
-    <!-- 二级路由出口组件-->
-    <RouterView/>
-  </div>
+  <LayoutNar />
+  <LayoutHeader />
+  <!-- 添加key 破坏复用机制 强制销毁重建-->
+  <!-- <RouterView :key="$route.fullPath" /> -->
+  <RouterView />
+  <LayoutFooter />
 </template>
 
 <style scoped>
