@@ -3,7 +3,7 @@
 </script>
 
 <template>
- <el-button type="success" round  >123</el-button>
+ <el-button type="primary" round  >123</el-button>
 </template>
 
 <style scoped>
