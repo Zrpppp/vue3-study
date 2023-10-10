@@ -3,9 +3,13 @@
 </script>
 
 <template>
- <el-button type="primary" round  >123</el-button>
+<!-- 一级路由出口组件-->
+<RouterView/>
+<div class="test">test scc</div>
 </template>
 
-<style scoped>
-
+<style scoped lang="scss">
+.test{
+  color: $priceColor;
+}
 </style>
