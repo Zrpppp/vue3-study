@@ -1,6 +1,10 @@
 <script setup>
 // import LayoutHeaderUl from './LayoutHeaderUl.vue'
 // import HeaderCart from './HeaderCart.vue'
+import {ref} from 'vue'
+//使用pinia中的数据
+import {useCategoryStore} from '@/stores/category'
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
@@ -9,10 +13,17 @@
             <h1 class="logo">
                 <RouterLink to="/">小兔鲜</RouterLink>
             </h1>
-
+            <ul class="app-header-nav">
+              <li class="home">
+                <RouterLink to="/">首页</RouterLink>
+              </li>
+              <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
+                <RouterLink active-class="active" :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+              </li>
+            </ul>
 <!--            <LayoutHeaderUl />-->
             <div class="search">
-                <i class="iconfont icon-search"></i>
+                <i class="iconfont icon-search"/>
                 <input type="text" placeholder="搜一搜">
             </div>
 <!--            &lt;!&ndash; 头部购物车 &ndash;&gt;-->

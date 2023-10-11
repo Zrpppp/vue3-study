@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -8,12 +7,16 @@ const router = createRouter({
       component: () => import('@/views/layout/index.vue'),
       children:[
         {
-          path:'/home',
+          path:'',
           component: () => import('@/views/home/index.vue')
         },
         {
-          path:'/category',
+          path:'category/:id',
           component: () => import('@/views/category/index.vue')
+        },
+        {
+          path:'category/sub/:id',
+          component: () => import('@/views/subCategory/index.vue')
         },
       ]
     },
