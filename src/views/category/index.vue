@@ -4,12 +4,15 @@ import {onMounted, ref} from "vue";
 import { useRoute } from "vue-router";
 import {getBannerAPI} from "@/api/home";
 import {onBeforeRouteUpdate} from "vue-router";
-import GoodsItem from "@/components/goodsItem.vue";
+import GoodsItem from "@/components/goodsItem/goodsItem.vue";
 //获取数据
 const categoryData = ref({});
 const route = useRoute();
+const loading = ref(false);
 const getCategory = async (id=route.params.id) => {
+  loading.value = true;
   const res = await getCategoryAPI(id)
+  loading.value = false;
   categoryData.value = res.result;
 };
 onMounted(()=>getCategory());
@@ -32,7 +35,7 @@ onBeforeRouteUpdate((to) => {
 
 <template>
   <div class="top-category">
-    <div class="container m-top-20">
+    <div class="container m-top-20" v-loading="loading">
       <!-- 面包屑 -->
       <div class="bread-container">
         <el-breadcrumb separator=">">
@@ -70,6 +73,7 @@ onBeforeRouteUpdate((to) => {
       </div>
     </div>
   </div>
+  <el-backtop :right="100" :bottom="100" />
 </template>
 
 

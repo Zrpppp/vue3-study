@@ -2,10 +2,11 @@
 import {getCategoryFilterAPI,getSubCategoryAPI} from '@/api/category'
 import {onMounted, ref} from 'vue'
 import {useRoute} from 'vue-router'
-import GoodsItem from "@/components/goodsItem.vue";
+import GoodsItem from "@/components/goodsItem/goodsItem.vue";
 //获取面包屑导航数据
 const categoryData = ref({})
 const route = useRoute()
+const loading = ref(false)
 const getCategoryData = async () => {
   const res = await getCategoryFilterAPI(route.params.id)
   categoryData.value = res.result
@@ -22,7 +23,9 @@ const reqData = ref({
   sortField: 'publishTime'
 })
 const getGoodList = async () => {
+  loading.value = true
   const res = await getSubCategoryAPI(reqData.value)
+  loading.value = false
   goodList.value = res.result.items
   counts.value = res.result.counts
 }
@@ -49,7 +52,7 @@ const loadMoreEvent = async () => {
 </script>
 
 <template>
-  <div class="container ">
+  <div class="container">
     <!-- 面包屑 -->
     <div class="bread-container">
       <el-breadcrumb separator=">">
@@ -58,18 +61,19 @@ const loadMoreEvent = async () => {
         <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="sub-container">
+    <div class="sub-container" v-loading="loading">
       <el-tabs v-model="reqData.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"/>
         <el-tab-pane label="最高人气" name="orderNum"/>
         <el-tab-pane label="评论最多" name="evaluateNum"/>
       </el-tabs>
-      <div class="body" v-infinite-scroll="loadMoreEvent" :infinite-scroll-disabled="disabled">
+      <div class="body" v-infinite-scroll="loadMoreEvent" :infinite-scroll-disabled="disabled" >
         <!-- 商品列表-->
         <goods-item v-for="goods in goodList" :goods="goods" :key="goods.id"/>
       </div>
     </div>
   </div>
+  <el-backtop :right="100" :bottom="100" />
 </template>
 
 
