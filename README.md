@@ -1,4 +1,4 @@
-# vue3-study
+# 小鲜兔儿电商项目(vue3练习)
 
 This template should help get you started developing with Vue 3 in Vite.
 
