@@ -3,7 +3,7 @@ import DetailHot from "@/views/detail/components/DetailHot.vue";
 import {getDetail} from '@/api/detail'
 import {onMounted, ref} from 'vue'
 import {useRoute} from 'vue-router'
-import {useCartStore} from "@/stores/cartStore";
+import {useCartStore} from "@/stores/cart";
 import {ElMessage} from 'element-plus'
 const goods = ref({})
 const route = useRoute()
@@ -25,7 +25,6 @@ const countChange = (num) => {
 //加入购物车
 const addCart = () => {
   if (!skuObj.skuId) return ElMessage.warning('请选择商品规格')
-  ElMessage.success('商品添加成功')
   useCartStore().addCart({
     id:goods.value.id,
     name:goods.value.name,

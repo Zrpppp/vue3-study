@@ -1,17 +1,15 @@
 <script setup>
-import { useCartStore } from '@/stores/cartStore'
+import { useCartStore } from '@/stores/cart'
 import {onMounted, ref } from 'vue'
-import {ElMessage} from 'element-plus'
 import {vClickOutside} from '@/utils/clickOutside'
+import {useRouter} from 'vue-router'
 const cartStore = useCartStore()
-
+const router = useRouter()
 const deleteClick = (i) => {
-  ElMessage.success('商品删除成功')
   cartStore.delCart(i.skuId)
 }
 
 const countChange = (num,i) => {
-  ElMessage.success('修改成功,数量修改为'+num+'件')
   cartStore.updateCount(num,i.skuId)
 }
 
@@ -25,7 +23,10 @@ const onClickOutside = () => {
   if (!isShow.value) return
   isShow.value = false
 }
-
+const goCartList = () => {
+  isShow.value = false
+  router.push('/cartList')
+}
 </script>
 
 <template>
@@ -61,7 +62,7 @@ const onClickOutside = () => {
           <p>共 {{ cartStore.allCount }} 件商品</p>
           <p>&yen; {{ cartStore.allPrice }} </p>
         </div>
-        <el-button size="large" type="primary" @click="$router.push('/cartlist')">去购物车结算</el-button>
+        <el-button size="large" type="primary" @click="goCartList">去购物车结算</el-button>
       </div>
     </div>
   </div>
