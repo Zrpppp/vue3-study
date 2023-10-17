@@ -8,7 +8,7 @@
 </template>
 
 <style scoped lang="scss">
-.test{
-  color: $priceColor;
+#nprogress .bar {
+  background: rgb(79, 133, 234) !important; //自定义颜色
 }
 </style>
